@@ -2872,7 +2872,7 @@ def pakWriteModel(mdl, bs):
 			dialogOptions.baseSkeleton = fileName
 			
 	source.readPakHeader()
-	texOnly = noesis.optWasInvoked("-t") or dialogOptions.isTLOU2 or dialogOptions.isTLOUP1
+	texOnly = noesis.optWasInvoked("-t")  # TLOU1/TLOU2 mesh export enabled; texture-only only when -t is explicitly used
 	if texOnly:
 		print("Embedding textures only")
 	
