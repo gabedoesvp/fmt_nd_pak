@@ -2,7 +2,8 @@
 #Author: alphaZomega 
 #Special Thanks: icemesh
 #Updated for TLOU 2 (PC) v1.5.10708.624 By Speclizer and Chandler Threepwood
-Version = 'v1.56 Unofficial (July 12, 2025)'
+#Updated for TLOU 2 (PC) v1.6.10721.0105 Basic Mesh Exporting by gabedoesvp
+Version = 'v1.57 Unofficial (May 12, 2026)'
 
 
 #Options: These are global options that change or enable/disable certain features
@@ -2721,7 +2722,7 @@ def pakLoadModel(data, mdlList):
 	global dialogOptions, gameName
 	
 	noesis.logPopup()
-	print("\n\n	Naughty Dog PAK model import", Version, "by alphaZomega\nUpdated by Speclizer and Chandler Threepwood for The Last of Us Part II (PC) v1.5.10708.624\nThis version does NOT work for TLOU 2 < v1.5.10708.624 PC files or PS4 files\n")
+	print("\n\n	Naughty Dog PAK model import", Version, "by alphaZomega\nUpdated by gabedoesvp for The Last of Us Part II (PC) v1.6.10721.0105\nThis version does NOT work for TLOU 2 < v1.5.10708.624 PC files or PS4 files\n")
 	
 	if noesis.optWasInvoked("-lods"):
 		dialogOptions.doLODs = True
@@ -2976,6 +2977,88 @@ def pakWriteModel(mdl, bs):
 				isModded = (readUIntAt(f, pointerFixupTblOffs + 12*8) == 4294967295)
 				newPage = pageCt if not isModded else pageCt-1
 				
+				def clampT2Byte(value):
+					return max(-128, min(127, int(value * 127 + 0.5000000001)))
+				
+				def getT2StreamWriteSize(sd, vertCount):
+					strideSize = sd.stride * vertCount
+					bitSize = 0
+					try:
+						bitSize = (sum(sd.sizes) * vertCount + 7) // 8
+					except:
+						bitSize = 0
+					return max(strideSize, bitSize)
+				
+				def getUVList(writeMesh, uvSlot):
+					if uvSlot == 0 and writeMesh.uvs:
+						return writeMesh.uvs
+					if uvSlot == 1 and writeMesh.lmUVs:
+						return writeMesh.lmUVs
+					if uvSlot >= 2 and writeMesh.uvxList and len(writeMesh.uvxList) > uvSlot-2:
+						return writeMesh.uvxList[uvSlot-2]
+					return []
+				
+				def writeT2HalfUVStream(tempbs, writeMesh, uvSlot):
+					UVs = getUVList(writeMesh, uvSlot)
+					if len(UVs) == len(writeMesh.positions):
+						for vert in UVs:
+							tempbs.writeHalfFloat(vert[0])
+							tempbs.writeHalfFloat(vert[1])
+					else:
+						for v in range(len(writeMesh.positions)):
+							tempbs.writeHalfFloat(0)
+							tempbs.writeHalfFloat(0)
+				
+				def writeT2QuantizedValue(tempbs, value, qScale, qOffs, bitCount):
+					if not bitCount:
+						return
+					if qScale == 0:
+						qValue = 0
+					else:
+						qValue = int(round((value - qOffs) / qScale))
+					qValue = max(0, min((1 << bitCount) - 1, qValue))
+					tempbs.writeBits(qValue, bitCount)
+				
+				def writeT2QuantizedStream(tempbs, sd, valueRows):
+					for row in valueRows:
+						for c in range(4):
+							bitCount = sd.sizes[c]
+							if bitCount:
+								value = row[c] if c < len(row) else 0.0
+								writeT2QuantizedValue(tempbs, value, sd.qScale[c], sd.qOffs[c], bitCount)
+				
+				def buildT2QuantizedRows(sd, writeMesh):
+					if sd.type == 64:
+						rows = []
+						for vert in writeMesh.positions:
+							rows.append((vert[0] * (1/GlobalScale), vert[1] * (1/GlobalScale), vert[2] * (1/GlobalScale), 0.0))
+						return rows
+					uvSlot = 0 if sd.type == 65 else (1 if sd.type == 75 else (2 if sd.type == 76 else -1))
+					UVs = getUVList(writeMesh, uvSlot)
+					rows = []
+					if uvSlot != -1 and len(UVs) == len(writeMesh.positions):
+						for uv in UVs:
+							rows.append((uv[0], uv[1], 0.0, 0.0))
+					else:
+						for v in range(len(writeMesh.positions)):
+							rows.append((0.0, 0.0, 0.0, 0.0))
+					return rows
+				
+				def writeT2UnknownOriginalOrZero(tempbs, f, sd, writeSize, writeMesh):
+					# The script only knows how to decode/export the recognized stream types below.
+					# For any other TLOU2/TLOUP1 stream, preserve original bytes only if the vertex count did not change.
+					if len(writeMesh.positions) == sd.numVerts:
+						oldTell = f.tell()
+						try:
+							oldSize = readUIntAt(f, sd.bufferOffsetAddr + 16)
+						except:
+							oldSize = writeSize
+						f.seek(sd.offset)
+						tempbs.writeBytes(f.readBytes(min(oldSize, writeSize)))
+						f.seek(oldTell)
+					else:
+						print("Nulling unknown TLOU stream type", sd.type)
+				
 				for i, meshTuple in enumerate(meshesToInject):
 					
 					writeMesh = meshTuple[0]
@@ -2992,13 +3075,14 @@ def pakWriteModel(mdl, bs):
 					appendedPositions = appendedWeights = appendedIndices = isModded #False
 					newPageDataAddr = source.pakPageEntries[len(source.pakPageEntries)-1][0] + source.pakPageEntries[len(source.pakPageEntries)-1][1]
 					owningIndex = source.pakPageEntries[len(source.pakPageEntries)-1][2]
-					vertOffs = submeshesAddr + 192*i + 36
+					vertOffs = submeshesAddr + 192*i + (136 if (dialogOptions.isTLOU2 or dialogOptions.isTLOUP1) else 36)
 					foundPositions = foundUVs = foundNormals = 0
 					appendedPositions = (len(writeMesh.positions) > sm.numVerts) or appendedPositions #and (not isModded or (source.getPointerFixupPage(sm.streamDescs[0].bufferOffsetAddr) < pageCt-1))
 					tempbs = wb if appendedPositions else bs
 					wroteColors = False
 					
-					bs.seek(sm.streamsAddr)
+					if sm.streamsAddr != None:
+						bs.seek(sm.streamsAddr)
 					#sdBytesList = []
 					#finalSdBytesList = []
 					#for j, sd in enumerate(sm.streamDescs):
@@ -3006,9 +3090,10 @@ def pakWriteModel(mdl, bs):
 					
 					for j, sd in enumerate(sm.streamDescs):
 						bs.seek(sd.offset)
+						isTLOUStream = (dialogOptions.isTLOU2 or dialogOptions.isTLOUP1)
+						streamWriteSize = getT2StreamWriteSize(sd, len(writeMesh.positions)) if isTLOUStream else sd.stride * len(writeMesh.positions)
 						
-						
-						if appendedPositions and wb.tell() + sd.stride * len(writeMesh.positions) > 1048032: #pages have a maximum size
+						if appendedPositions and wb.tell() + streamWriteSize > 1048032: #pages have a maximum size
 							newPageStreams.append(wb)
 							newPage += 1
 							wb = NoeBitStream()
@@ -3018,105 +3103,135 @@ def pakWriteModel(mdl, bs):
 							newPak.changePointerFixup(sd.bufferOffsetAddr, wb.tell(), newPage)
 						
 						bufferStart = tempbs.tell()
-						for b in range(sd.stride * len(writeMesh.positions)):
+						for b in range(streamWriteSize):
 							tempbs.writeByte(0)
 						bufferEnd = tempbs.tell()
 						tempbs.seek(bufferStart)
 						
-						if ((j == 0 and sd.stride == 12 or sd.stride == 8)) and not foundPositions:
-							bFoundPositions = True
-							#finalSdBytesList.append(sdBytesList[j])
-							if sd.stride == 12:
-								for v, vert in enumerate(writeMesh.positions):
+						if isTLOUStream:
+							# TLOU2/TLOUP1 stream types are taken from this script's T2 import path:
+							# j==0/stride 12 = positions, 1 = UV1, 2 = normals, 3 = tangents, 11 = UV2,
+							# 64 = quantized positions, 65/75/76 = quantized UV-style streams.
+							if j == 0 and sd.stride == 12:
+								foundPositions += 1
+								for vert in writeMesh.positions:
 									tempbs.writeFloat(vert[0] * (1/GlobalScale))
 									tempbs.writeFloat(vert[1] * (1/GlobalScale))
 									tempbs.writeFloat(vert[2] * (1/GlobalScale))
-							elif sd.stride == 8:
-								for v, vert in enumerate(writeMesh.positions):
-									tempbs.writeHalfFloat(vert[0] * (1/GlobalScale))
-									tempbs.writeHalfFloat(vert[1] * (1/GlobalScale))
-									tempbs.writeHalfFloat(vert[2] * (1/GlobalScale))
-									tempbs.writeHalfFloat(0)
-									
-						elif sd.type == 34:
-							foundUVs += 1
-							UVs = []
-							if foundUVs == 1 and writeMesh.uvs:
-								UVs = writeMesh.uvs
-							elif foundUVs == 2 and writeMesh.lmUVs:
-								UVs = writeMesh.lmUVs
-							elif foundUVs > 2 and writeMesh.uvxList and len(writeMesh.uvxList) > foundUVs-3:
-								UVs = writeMesh.uvxList[foundUVs-3]
-							
-							if len(UVs) == len(writeMesh.positions):
-								for v, vert in enumerate(UVs):
-									tempbs.writeHalfFloat(vert[0])
-									tempbs.writeHalfFloat(vert[1])
+							elif sd.type == 1:
+								writeT2HalfUVStream(tempbs, writeMesh, 0)
+							elif sd.type == 2:
+								if writeMesh.tangents and len(writeMesh.tangents) == len(writeMesh.positions):
+									for vert in writeMesh.tangents:
+										tempbs.writeByte(clampT2Byte(vert[0][0]))
+										tempbs.writeByte(clampT2Byte(vert[0][1]))
+										tempbs.writeByte(clampT2Byte(vert[0][2]))
+										tempbs.writeByte(0)
+							elif sd.type == 3:
+								if writeMesh.tangents and len(writeMesh.tangents) == len(writeMesh.positions):
+									for vert in writeMesh.tangents:
+										tempbs.writeByte(clampT2Byte(vert[2][0]))
+										tempbs.writeByte(clampT2Byte(vert[2][1]))
+										tempbs.writeByte(clampT2Byte(vert[2][2]))
+										TNW = vert[0].cross(vert[1]).dot(vert[2])
+										tempbs.writeByte(129 if TNW < 0.0 else 127)
+							elif sd.type == 11:
+								writeT2HalfUVStream(tempbs, writeMesh, 1)
+							elif sd.type == 64 or sd.type == 65 or sd.type == 75 or sd.type == 76:
+								writeT2QuantizedStream(tempbs, sd, buildT2QuantizedRows(sd, writeMesh))
 							else:
-								for v, vert in enumerate(writeMesh.positions):
-									tempbs.writeHalfFloat(0)
-									tempbs.writeHalfFloat(0)
-									
-						elif sd.type == 31 and foundNormals < 2:
-							foundNormals += 1
-							#finalSdBytesList.append(sdBytesList[j])
-							if foundNormals == 1:
-								for v, vert in enumerate(writeMesh.tangents): 
-									tempbs.writeByte(int(vert[0][0] * 127 + 0.5000000001)) #normal
-									tempbs.writeByte(int(vert[0][1] * 127 + 0.5000000001))
-									tempbs.writeByte(int(vert[0][2] * 127 + 0.5000000001))
-									tempbs.writeByte(0)
-							elif foundNormals == 2: 
-								for v, vert in enumerate(writeMesh.tangents):
-									tempbs.writeByte(int(vert[2][0] * 127 + 0.5000000001)) #bitangent
-									tempbs.writeByte(int(vert[2][1] * 127 + 0.5000000001))
-									tempbs.writeByte(int(vert[2][2] * 127 + 0.5000000001))
-									TNW = vert[0].cross(vert[1]).dot(vert[2])
-									if (TNW < 0.0):
-										tempbs.writeByte(129)
-									else:
-										tempbs.writeByte(127)
-						
-						elif sd.type == 10:
-							if writeMesh.colors and not wroteColors:
-								wroteColors = True
-								#finalSdBytesList.append(sdBytesList[j])
-								for v, vert in enumerate(writeMesh.colors):
-									tempbs.writeHalfFloat(vert[0])
-									tempbs.writeHalfFloat(vert[1])
-									tempbs.writeHalfFloat(vert[2])
-									tempbs.writeHalfFloat(0)
-							else:
-								for v in range(len(writeMesh.positions)):
-									tempbs.writeHalfFloat(0)
-									tempbs.writeHalfFloat(0)
-									tempbs.writeHalfFloat(0)
-									tempbs.writeHalfFloat(0)
-									
+								writeT2UnknownOriginalOrZero(tempbs, f, sd, streamWriteSize, writeMesh)
+							writeUIntAt(bs, sd.bufferOffsetAddr + 8, len(writeMesh.positions)) # T2 stream vertex count
+							writeUIntAt(bs, sd.bufferOffsetAddr + 16, bufferEnd-bufferStart) # T2 buffer size
 						else:
-							print("Nulling unknown component type", sd.type)
-
-						
-						#bs.seek(sm.streamsAddr)
-						#for rawBytes in finalSdBytesList:
-						#	bs.writeBytes(rawBytes)
+							if ((j == 0 and sd.stride == 12 or sd.stride == 8)) and not foundPositions:
+								bFoundPositions = True
+								if sd.stride == 12:
+									for v, vert in enumerate(writeMesh.positions):
+										tempbs.writeFloat(vert[0] * (1/GlobalScale))
+										tempbs.writeFloat(vert[1] * (1/GlobalScale))
+										tempbs.writeFloat(vert[2] * (1/GlobalScale))
+								elif sd.stride == 8:
+									for v, vert in enumerate(writeMesh.positions):
+										tempbs.writeHalfFloat(vert[0] * (1/GlobalScale))
+										tempbs.writeHalfFloat(vert[1] * (1/GlobalScale))
+										tempbs.writeHalfFloat(vert[2] * (1/GlobalScale))
+										tempbs.writeHalfFloat(0)
+							elif sd.type == 34:
+								foundUVs += 1
+								UVs = []
+								if foundUVs == 1 and writeMesh.uvs:
+									UVs = writeMesh.uvs
+								elif foundUVs == 2 and writeMesh.lmUVs:
+									UVs = writeMesh.lmUVs
+								elif foundUVs > 2 and writeMesh.uvxList and len(writeMesh.uvxList) > foundUVs-3:
+									UVs = writeMesh.uvxList[foundUVs-3]
+								if len(UVs) == len(writeMesh.positions):
+									for v, vert in enumerate(UVs):
+										tempbs.writeHalfFloat(vert[0])
+										tempbs.writeHalfFloat(vert[1])
+								else:
+									for v, vert in enumerate(writeMesh.positions):
+										tempbs.writeHalfFloat(0)
+										tempbs.writeHalfFloat(0)
+							elif sd.type == 31 and foundNormals < 2:
+								foundNormals += 1
+								if foundNormals == 1:
+									for v, vert in enumerate(writeMesh.tangents): 
+										tempbs.writeByte(int(vert[0][0] * 127 + 0.5000000001)) #normal
+										tempbs.writeByte(int(vert[0][1] * 127 + 0.5000000001))
+										tempbs.writeByte(int(vert[0][2] * 127 + 0.5000000001))
+										tempbs.writeByte(0)
+								elif foundNormals == 2: 
+									for v, vert in enumerate(writeMesh.tangents):
+										tempbs.writeByte(int(vert[2][0] * 127 + 0.5000000001)) #bitangent
+										tempbs.writeByte(int(vert[2][1] * 127 + 0.5000000001))
+										tempbs.writeByte(int(vert[2][2] * 127 + 0.5000000001))
+										TNW = vert[0].cross(vert[1]).dot(vert[2])
+										tempbs.writeByte(129 if TNW < 0.0 else 127)
+							elif sd.type == 10:
+								if writeMesh.colors and not wroteColors:
+									wroteColors = True
+									for v, vert in enumerate(writeMesh.colors):
+										tempbs.writeHalfFloat(vert[0])
+										tempbs.writeHalfFloat(vert[1])
+										tempbs.writeHalfFloat(vert[2])
+										tempbs.writeHalfFloat(0)
+								else:
+									for v in range(len(writeMesh.positions)):
+										tempbs.writeHalfFloat(0)
+										tempbs.writeHalfFloat(0)
+										tempbs.writeHalfFloat(0)
+										tempbs.writeHalfFloat(0)
+							else:
+								print("Nulling unknown component type", sd.type)
+							writeUIntAt(bs, sd.bufferOffsetAddr - 12, bufferEnd-bufferStart) #buffer size
 						
 						tempbs.seek(bufferEnd)
-						if bufferEnd - bufferStart > 0:
-							writeUIntAt(bs, sd.bufferOffsetAddr - 12, bufferEnd-bufferStart) #buffer size
 					
 					
 					if sm.skinDesc:
 					
+						maxInfluences = 12
+						meshWeights = writeMesh.weights if writeMesh.weights and len(writeMesh.weights) == len(writeMesh.positions) else []
+						if not meshWeights:
+							for v in range(len(writeMesh.positions)):
+								meshWeights.append(NoeVertWeight([0], [1.0]))
+						
 						fbxWeightCount = 0
 						trueWeightCounts = []
-						for v, vertWeight in enumerate(writeMesh.weights):
-							trueWeightCounts.append(0)
+						weightRows = []
+						for v, vertWeight in enumerate(meshWeights):
+							row = []
 							for w, weight in enumerate(vertWeight.weights):
-								if weight > 0: 
-									fbxWeightCount += 1
-									trueWeightCounts[v] += 1
-									
+								if weight > 0 and len(row) < maxInfluences:
+									row.append((vertWeight.indices[w], weight))
+							if len(row) == 0:
+								row.append((0, 1.0))
+							trueWeightCounts.append(len(row))
+							fbxWeightCount += len(row)
+							weightRows.append(row)
+						
 						if appendedPositions and wb.tell() > 0 and wb.tell() + 8*len(writeMesh.positions) > 1048032:
 							newPageStreams.append(wb)
 							newPage += 1
@@ -3128,14 +3243,15 @@ def pakWriteModel(mdl, bs):
 						
 						if appendedPositions:
 							newPak.changePointerFixup(sm.skinDesc.mapOffsetAddr, idxStart, newPage)
-							for vertWeight in writeMesh.weights:
+							for vertWeight in meshWeights:
 								wb.writeUInt64(0)
 						
+						weightEntrySize = 8 if sm.skinDesc.uncompressed else 4
 						appendedWeights = (fbxWeightCount > sm.skinDesc.weightCount)
 						if appendedWeights:
-							if 4*fbxWeightCount > 1048032:
-								print("\nWARNING: Weights buffer exceeds the maximum page size of 262008 weights (has " + str(fbxWeightCount) + ")!\n")
-							if wb.tell() > 0 and wb.tell() + 4*fbxWeightCount > 1048032:
+							if weightEntrySize*fbxWeightCount > 1048032:
+								print("\nWARNING: Weights buffer exceeds the maximum page size (has " + str(fbxWeightCount) + " weights)!\n")
+							if wb.tell() > 0 and wb.tell() + weightEntrySize*fbxWeightCount > 1048032:
 								newPageStreams.append(wb)
 								newPage += 1
 								wb = NoeBitStream()
@@ -3144,21 +3260,28 @@ def pakWriteModel(mdl, bs):
 						wtStart = wb.tell() if appendedWeights else sm.skinDesc.weightsOffset
 						tempbs = wb if appendedWeights else bs
 						
-						for v, vertWeight in enumerate(writeMesh.weights):
+						for v, row in enumerate(weightRows):
 							idxbs.seek(idxStart + 8*v)
 							idxbs.writeUInt(trueWeightCounts[v])
 							idxbs.writeUInt(runningOffset)
 							tempbs.seek(wtStart + runningOffset)
-							for w, weight in enumerate(vertWeight.weights):
-								if weight > 0:
+							for boneIndex, weight in row:
+								try:
+									boneID = boneDict[mdl.bones[boneIndex].name]
+								except:
 									try:
-										boneID = boneDict[mdl.bones[vertWeight.indices[w]].name]
+										print("Bone weight ID", boneIndex, mdl.bones[boneIndex].name, "not found in pak skeleton")
 									except:
-										print("Bone weight ID", w, mdl.bones[vertWeight.indices[w]].name, "not found in pak skeleton")
-									tempbs.writeUInt((boneID << 22) | int(weight * 4194303))
-									runningOffset += 4
+										print("Bone weight ID", boneIndex, "not found in pak skeleton")
+									boneID = 0
+								if sm.skinDesc.uncompressed:
+									tempbs.writeFloat(weight)
+									tempbs.writeUInt(boneID)
+								else:
+									tempbs.writeUInt((boneID << 22) | int(max(0.0, min(1.0, weight)) * 4194303))
+								runningOffset += weightEntrySize
 						
-						writeUIntAt(bs, sm.skinDesc.mapOffsetAddr-12, int(runningOffset/4))
+						writeUIntAt(bs, sm.skinDesc.mapOffsetAddr-12, fbxWeightCount)
 					
 					if len(writeMesh.indices) > sm.numIndices:
 						appendedIndices = True
