@@ -1,7 +1,8 @@
 #fmt_nd_pak.py - Naughty Dog ".pak" plugin for Rich Whitehouse's Noesis
 #Author: alphaZomega 
-#Special Thanks: icemesh 
-Version = 'v1.53 (April 1, 2023)'
+#Special Thanks: icemesh
+#Updated for TLOU 2 (PC) v1.5.10708.624 By Speclizer and Chandler Threepwood
+Version = 'v1.56 Unofficial (July 12, 2025)'
 
 
 #Options: These are global options that change or enable/disable certain features
@@ -25,7 +26,7 @@ ReparentHelpers = 2												# Parents helper bones based on their names, most
 BaseDirectories = {
 	"TLL": "D:\\ExtractedGameFiles\\Uncharted4_data\\build\\pc\\thelostlegacy\\",
 	"U4": "D:\\ExtractedGameFiles\\Uncharted4_data\\build\\pc\\uncharted4\\",
-	"TLOU2": "D:\\ExtractedGameFiles\\root\\build\\ps4\\main\\",
+	"TLOU2": "C:\\SteamLibrary\\Nouveau dossier\\",
 	"TLOUP1": "H:\\ExtractedGameFiles\\TLOUP1\\build\\pc\\main\\",
 }
 
@@ -452,6 +453,15 @@ skelFiles = {
 		"common\\actor97\\ellie-skel.pak",
 		"common\\actor97\\light-skel.pak",
 		"common\\actor97\\manual-upgrade-magazine-righthand-skel.pak",
+		"world-rogue\\actor97\\bill-player-skel.pak",
+		"world-rogue\\actor97\\dina-player-skel.pak",
+		"world-rogue\\actor97\\jesse-player-skel.pak",
+		"world-rogue\\actor97\\joel-player-skel.pak",
+		"world-rogue\\actor97\\lev-player-skel.pak",
+		"world-rogue\\actor97\\manny-player-skel.pak",
+		"world-rogue\\actor97\\marlene-player-skel.pak",
+		"world-rogue\\actor97\\tommy-player-skel.pak",
+		"world-rogue\\actor97\\yara-player-skel.pak",
 		"sp-common\\actor97\\ellie-festival-strand-hair-cloth-skel.pak",
 		"sp-common\\actor97\\ellie-santa-barbara-hair-cloth-skel.pak",
 		"sp-common\\actor97\\ellie-seattle-hoodie-string-skel.pak",
@@ -462,107 +472,107 @@ skelFiles = {
 		"sp-common\\actor97\\horse-saddle-strap-cloth-skel.pak",
 		"sp-common\\actor97\\horse-tail-cloth-skel.pak",
 		"sp-common\\actor97\\lev-jacket-cloth-skel.pak",
-		"world-abby-fights-militia\\actor97\\scar-colin-skel.pak",
-		"world-abby-flashback-dad\\actor97\\marlene-skel.pak",
-		"world-abby-flashback-dad\\actor97\\zebra-baby-skel.pak",
-		"world-abby-flashback-dad\\actor97\\zebra-skel.pak",
-		"world-ellie-flashback-patrol\\actor97\\base-brute-male-skel.pak",
-		"world-ellie-flashback-patrol\\actor97\\bloater-skel.pak",
-		"world-ellie-flashback-patrol\\actor97\\infected-bloater-skel.pak",
-		"world-farm\\actor97\\base-kid-female-skel.pak",
-		"world-farm\\actor97\\festival-partner-skel.pak",
-		"world-farm\\actor97\\sheep-lamb-skel.pak",
-		"world-find-nora\\actor97\\base-brute-female-skel.pak",
-		"world-find-nora\\actor97\\bird-xlarge-skel-t2.pak",
-		"world-find-nora\\actor97\\frog-skel.pak",
-		"world-find-nora\\actor97\\med-hosp-skeleton-male-a.pak",
-		"world-find-nora\\actor97\\militia-whitney-skel.pak",
-		"world-find-nora\\actor97\\npc-brute-skel.pak",
-		"world-flashback-guitar\\actor97\\base-female-crowd-skel.pak",
-		"world-flashback-guitar\\actor97\\base-female-skel.pak",
-		"world-flashback-guitar\\actor97\\base-kid-skel.pak",
-		"world-flashback-guitar\\actor97\\base-male-crowd-skel.pak",
-		"world-flashback-guitar\\actor97\\base-teen-skel.pak",
-		"world-flashback-guitar\\actor97\\bird-medium-skel-t2.pak",
-		"world-flashback-guitar\\actor97\\dina-skel.pak",
-		"world-flashback-guitar\\actor97\\doe-skel.pak",
-		"world-flashback-guitar\\actor97\\door-skel.pak",
-		"world-flashback-guitar\\actor97\\drawer-skel.pak",
-		"world-flashback-guitar\\actor97\\ellie-14-skel.pak",
-		"world-flashback-guitar\\actor97\\guitar-skel.pak",
-		"world-flashback-guitar\\actor97\\horse-main-skel.pak",
-		"world-flashback-guitar\\actor97\\horse-skel.pak",
-		"world-flashback-guitar\\actor97\\jerry-skel.pak",
-		"world-flashback-guitar\\actor97\\jesse-skel.pak",
-		"world-flashback-guitar\\actor97\\joel-skel.pak",
-		"world-flashback-guitar\\actor97\\maria-skel.pak",
-		"world-flashback-guitar\\actor97\\t1-npc-normal-skel-old.pak",
-		"world-flashback-guitar\\actor97\\tommy-skel.pak",
-		"world-flooded-city\\actor97\\cab-high-skel-l.pak",
-		"world-flooded-city\\actor97\\military-truck-modern-skel.pak",
-		"world-flooded-city\\actor97\\young-abby-skel.pak",
-		"world-forward-base\\actor97\\bird-small-skel.pak",
-		"world-forward-base\\actor97\\bird-tiny-skel.pak",
-		"world-forward-base\\actor97\\chicken-skel.pak",
-		"world-forward-base\\actor97\\dog-crowd-skel.pak",
-		"world-forward-base\\actor97\\fish-skel-sml.pak",
-		"world-forward-base\\actor97\\halloween-skeleton-a-hanging.pak",
-		"world-forward-base\\actor97\\horse-crowd-skel.pak",
-		"world-forward-base\\actor97\\isaac-skel.pak",
-		"world-forward-base\\actor97\\militia-mannysdad-skel.pak",
-		"world-forward-base\\actor97\\scar-chris-skel.pak",
-		"world-forward-base\\actor97\\scar-emily-skel.pak",
-		"world-forward-base\\actor97\\sea-lion-skel.pak",
-		"world-forward-base\\actor97\\sheep-adult-skel.pak",
-		"world-medicine\\actor97\\abby-prisoner-skel.pak",
-		"world-medicine\\actor97\\med-hosp-skeleton-female-a.pak",
-		"world-medicine\\actor97\\ratking-bloater-skel.pak",
-		"world-medicine\\actor97\\ratking-stalker-scaled-skel.pak",
-		"world-medicine\\actor97\\ratking-stalker-skel.pak",
-		"world-patrol-chalet\\actor97\\jordan-skel.pak",
-		"world-patrol-jackson\\actor97\\abby-skel.pak",
-		"world-patrol-jackson\\actor97\\alice-skel.pak",
-		"world-patrol-jackson\\actor97\\base-baby-skel.pak",
-		"world-patrol-jackson\\actor97\\cow-skel.pak",
-		"world-patrol-jackson\\actor97\\dog-skel.pak",
-		"world-patrol-jackson\\actor97\\gustavo-skel.pak",
-		"world-patrol-jackson\\actor97\\leah-skel.pak",
-		"world-patrol-jackson\\actor97\\manny-skel.pak",
-		"world-patrol-jackson\\actor97\\mel-skel.pak",
-		"world-patrol-jackson\\actor97\\nick-skel.pak",
-		"world-patrol-jackson\\actor97\\nora-skel.pak",
-		"world-patrol-jackson\\actor97\\npc-normal-skel.pak",
-		"world-patrol-jackson\\actor97\\owen-skel.pak",
-		"world-patrol-jackson\\actor97\\seth-skel.pak",
-		"world-patrol\\actor97\\base-female-horde-skel.pak",
-		"world-patrol\\actor97\\cab-short-skel-r.pak",
-		"world-santa-barbara\\actor97\\prisoner-ian-skel.pak",
-		"world-santa-barbara\\actor97\\slaver-matthew-skel.pak",
-		"world-santa-barbara\\actor97\\slaver-ryan-skel.pak",
-		"world-saving-kids\\actor97\\bird-large-skel-t2.pak",
-		"world-saving-kids\\actor97\\carry-plank-skel.pak",
-		"world-saving-kids\\actor97\\lev-skel.pak",
-		"world-saving-kids\\actor97\\scar-reuben-skel.pak",
-		"world-saving-kids\\actor97\\yara-skel.pak",
-		"world-seattle-arrival\\actor97\\cab-short-skel-l.pak",
-		"world-seattle-arrival\\actor97\\cat-skel.pak",
-		"world-seattle-arrival\\actor97\\fish-skel-lrg.pak",
-		"world-seattle-arrival\\actor97\\manual-upgrade-skel.pak",
-		"world-seattle-arrival\\actor97\\mike-skel.pak",
-		"world-seattle-arrival\\actor97\\rifle-strap-inspect-skel.pak",
-		"world-theater\\actor97\\backpack-ellie-museum-skel.pak",
-		"world-theater\\actor97\\backpack-young-ellie-skel.pak",
-		"world-theater\\actor97\\bird-small-skel-t2.pak",
-		"world-theater\\actor97\\boar-skel.pak",
-		"world-theater\\actor97\\buck-skel.pak",
-		"world-theater\\actor97\\fish-skel-tiny.pak",
-		"world-tracking-horde\\actor97\\base-male-horde-skel.pak",
-		"world-tracking-horde\\actor97\\door-dbl-skel.pak",
-		"world-tracking\\actor97\\infected-skel.pak",
-		"world-tracking\\actor97\\rope14m-skel.pak",
-		"world-watchtower\\actor97\\cab-high-skel-r.pak",
-		"world-watchtower\\actor97\\hangmans-noose-2m-body-skel.pak",
-		"world-watchtower\\actor97\\shambler-skel.pak",
+		"sp-common\\actor97\\scar-colin-skel.pak",
+		"sp-common\\actor97\\marlene-skel.pak",
+		"sp-common\\actor97\\zebra-baby-skel.pak",
+		"sp-common\\actor97\\zebra-skel.pak",
+		"sp-common\\actor97\\base-brute-male-skel.pak",
+		"sp-common\\actor97\\bloater-skel.pak",
+		"sp-common\\actor97\\infected-bloater-skel.pak",
+		"sp-common\\actor97\\base-kid-female-skel.pak",
+		"sp-common\\actor97\\festival-partner-skel.pak",
+		"sp-common\\actor97\\sheep-lamb-skel.pak",
+		"sp-common\\actor97\\base-brute-female-skel.pak",
+		"sp-common\\actor97\\bird-xlarge-skel-t2.pak",
+		"sp-common\\actor97\\frog-skel.pak",
+		"sp-common\\actor97\\med-hosp-skeleton-male-a.pak",
+		"sp-common\\actor97\\militia-whitney-skel.pak",
+		"sp-common\\actor97\\npc-brute-skel.pak",
+		"sp-common\\actor97\\base-female-crowd-skel.pak",
+		"sp-common\\actor97\\base-female-skel.pak",
+		"sp-common\\actor97\\base-kid-skel.pak",
+		"sp-common\\actor97\\base-male-crowd-skel.pak",
+		"sp-common\\actor97\\base-teen-skel.pak",
+		"sp-common\\actor97\\bird-medium-skel-t2.pak",
+		"sp-common\\actor97\\dina-skel.pak",
+		"sp-common\\actor97\\doe-skel.pak",
+		"sp-common\\actor97\\door-skel.pak",
+		"sp-common\\actor97\\drawer-skel.pak",
+		"sp-common\\actor97\\ellie-14-skel.pak",
+		"sp-common\\actor97\\guitar-skel.pak",
+		"sp-common\\actor97\\horse-main-skel.pak",
+		"sp-common\\actor97\\horse-skel.pak",
+		"sp-common\\actor97\\jerry-skel.pak",
+		"sp-common\\actor97\\jesse-skel.pak",
+		"sp-common\\actor97\\joel-skel.pak",
+		"sp-common\\actor97\\maria-skel.pak",
+		"sp-common\\actor97\\t1-npc-normal-skel-old.pak",
+		"sp-common\\actor97\\tommy-skel.pak",
+		"sp-common\\actor97\\cab-high-skel-l.pak",
+		"sp-common\\actor97\\military-truck-modern-skel.pak",
+		"sp-common\\actor97\\young-abby-skel.pak",
+		"sp-common\\actor97\\bird-small-skel.pak",
+		"sp-common\\actor97\\bird-tiny-skel.pak",
+		"sp-common\\actor97\\chicken-skel.pak",
+		"sp-common\\actor97\\dog-crowd-skel.pak",
+		"sp-common\\actor97\\fish-skel-sml.pak",
+		"sp-common\\actor97\\halloween-skeleton-a-hanging.pak",
+		"sp-common\\actor97\\horse-crowd-skel.pak",
+		"sp-common\\actor97\\isaac-skel.pak",
+		"sp-common\\actor97\\militia-mannysdad-skel.pak",
+		"sp-common\\actor97\\scar-chris-skel.pak",
+		"sp-common\\actor97\\scar-emily-skel.pak",
+		"sp-common\\actor97\\sea-lion-skel.pak",
+		"sp-common\\actor97\\sheep-adult-skel.pak",
+		"sp-common\\actor97\\abby-prisoner-skel.pak",
+		"sp-common\\actor97\\med-hosp-skeleton-female-a.pak",
+		"sp-common\\actor97\\ratking-bloater-skel.pak",
+		"sp-common\\actor97\\ratking-stalker-scaled-skel.pak",
+		"sp-common\\actor97\\ratking-stalker-skel.pak",
+		"sp-common\\actor97\\jordan-skel.pak",
+		"sp-common\\actor97\\abby-skel.pak",
+		"sp-common\\actor97\\alice-skel.pak",
+		"sp-common\\actor97\\base-baby-skel.pak",
+		"sp-common\\actor97\\cow-skel.pak",
+		"sp-common\\actor97\\dog-skel.pak",
+		"sp-common\\actor97\\gustavo-skel.pak",
+		"sp-common\\actor97\\leah-skel.pak",
+		"sp-common\\actor97\\manny-skel.pak",
+		"sp-common\\actor97\\mel-skel.pak",
+		"sp-common\\actor97\\nick-skel.pak",
+		"sp-common\\actor97\\nora-skel.pak",
+		"sp-common\\actor97\\npc-normal-skel.pak",
+		"sp-common\\actor97\\owen-skel.pak",
+		"sp-common\\actor97\\seth-skel.pak",
+		"sp-common\\actor97\\base-female-horde-skel.pak",
+		"sp-common\\actor97\\cab-short-skel-r.pak",
+		"sp-common\\actor97\\prisoner-ian-skel.pak",
+		"sp-common\\actor97\\slaver-matthew-skel.pak",
+		"sp-common\\actor97\\slaver-ryan-skel.pak",
+		"sp-common\\actor97\\bird-large-skel-t2.pak",
+		"sp-common\\actor97\\carry-plank-skel.pak",
+		"sp-common\\actor97\\lev-skel.pak",
+		"sp-common\\actor97\\scar-reuben-skel.pak",
+		"sp-common\\actor97\\yara-skel.pak",
+		"sp-common\\actor97\\cab-short-skel-l.pak",
+		"sp-common\\actor97\\cat-skel.pak",
+		"sp-common\\actor97\\fish-skel-lrg.pak",
+		"sp-common\\actor97\\manual-upgrade-skel.pak",
+		"sp-common\\actor97\\mike-skel.pak",
+		"sp-common\\actor97\\rifle-strap-inspect-skel.pak",
+		"sp-common\\actor97\\backpack-ellie-museum-skel.pak",
+		"sp-common\\actor97\\backpack-young-ellie-skel.pak",
+		"sp-common\\actor97\\bird-small-skel-t2.pak",
+		"sp-common\\actor97\\boar-skel.pak",
+		"sp-common\\actor97\\buck-skel.pak",
+		"sp-common\\actor97\\fish-skel-tiny.pak",
+		"sp-common\\actor97\\base-male-horde-skel.pak",
+		"sp-common\\actor97\\door-dbl-skel.pak",
+		"sp-common\\actor97\\infected-skel.pak",
+		"sp-common\\actor97\\rope14m-skel.pak",
+		"sp-common\\actor97\\cab-high-skel-r.pak",
+		"sp-common\\actor97\\hangmans-noose-2m-body-skel.pak",
+		"sp-common\\actor97\\shambler-skel.pak",
 	],
 }
 
@@ -684,121 +694,122 @@ baseSkeletons = {
 		#"joel": "sp-common\\actor97\\joel-skel.pak",
 	},
 	"TLOU2": {
-		"abby": "world-patrol-jackson\\actor97\\abby-skel.pak",
-		"abby-prisoner": "world-medicine\\actor97\\abby-prisoner-skel.pak",
-		"alice": "world-patrol-jackson\\actor97\\alice-skel.pak",
-		"backpack-ellie-museum": "world-theater\\actor97\\backpack-ellie-museum-skel.pak",
-		"backpack-young-ellie": "world-theater\\actor97\\backpack-young-ellie-skel.pak",
-		"base-baby": "world-patrol-jackson\\actor97\\base-baby-skel.pak",
-		"base-brute-female": "world-find-nora\\actor97\\base-brute-female-skel.pak",
-		"base-brute-male": "world-ellie-flashback-patrol\\actor97\\base-brute-male-skel.pak",
-		"base-female": "world-flashback-guitar\\actor97\\base-female-skel.pak",
+		"abby": "sp-common\\actor97\\abby-skel.pak",
+		"abby-prisoner": "sp-common\\actor97\\abby-prisoner-skel.pak",
+		"alice": "sp-common\\actor97\\alice-skel.pak",
+		"backpack-ellie-museum": "world-flashback-guitar\\actor97\\backpack-ellie-museum-skel.pak",
+		"backpack-young-ellie": "world-flashback-guitar\\actor97\\backpack-young-ellie-skel.pak",
+		"base-baby": "sp-common\\actor97\\base-baby-skel.pak",
+		"base-brute-female": "sp-common\\actor97\\base-brute-female-skel.pak",
+		"base-brute-male": "sp-common\\actor97\\base-brute-male-skel.pak",
+		"base-female": "sp-common\\actor97\\base-female-skel.pak",
 		"base-female-crowd": "world-flashback-guitar\\actor97\\base-female-crowd-skel.pak",
 		"base-female-horde": "world-patrol\\actor97\\base-female-horde-skel.pak",
 		"base-kid": "world-flashback-guitar\\actor97\\base-kid-skel.pak",
-		"base-kid-female": "world-farm\\actor97\\base-kid-female-skel.pak",
+		"base-kid-female": "world-saving-kids\\actor97\\base-kid-female-skel.pak",
 		"base-male": "common\\actor97\\base-male-skel.pak",
 		"base-male-crowd": "world-flashback-guitar\\actor97\\base-male-crowd-skel.pak",
-		"base-male-horde": "world-tracking-horde\\actor97\\base-male-horde-skel.pak",
+		"base-male-horde": "world-patrol\\actor97\\base-male-horde-skel.pak",
 		"base-teen": "world-flashback-guitar\\actor97\\base-teen-skel.pak",
+		"bill-player":"world-rogue\\actor97\\bill-player-skel.pak",
 		"bird-large": "world-saving-kids\\actor97\\bird-large-skel-t2.pak",
-		"bird-medium-t2": "world-flashback-guitar\\actor97\\bird-medium-skel-t2.pak",
+		"bird-medium-t2": "sp-common\\actor97\\bird-medium-skel-t2.pak",
 		"bird-small": "world-forward-base\\actor97\\bird-small-skel.pak",
-		"bird-small": "world-theater\\actor97\\bird-small-skel-t2.pak",
+		"bird-small": "world-flashback-guitar\\actor97\\bird-small-skel-t2.pak",
 		"bird-tiny": "world-forward-base\\actor97\\bird-tiny-skel.pak",
-		"bird-xlarge-t2": "world-find-nora\\actor97\\bird-xlarge-skel-t2.pak",
-		"bloater": "world-ellie-flashback-patrol\\actor97\\bloater-skel.pak",
-		"boar": "world-theater\\actor97\\boar-skel.pak",
-		"buck": "world-theater\\actor97\\buck-skel.pak",
+		"bird-xlarge-t2": "world-ellie-flashback-patrol\\actor97\\bird-xlarge-skel-t2.pak",
+		"bloater": "sp-common\\actor97\\bloater-skel.pak",
+		"boar": "world-flashback-guitar\\actor97\\boar-skel.pak",
+		"buck": "world-flashback-guitar\\actor97\\buck-skel.pak",
 		"cab-high": "world-watchtower\\actor97\\cab-high-skel-r.pak",
-		"cab-high-l": "world-flooded-city\\actor97\\cab-high-skel-l.pak",
-		"cab-short": "world-seattle-arrival\\actor97\\cab-short-skel-l.pak",
-		"cab-short-r": "world-patrol\\actor97\\cab-short-skel-r.pak",
+		"cab-high-l": "world-ellie-flashback-ultimatum\\actor97\\cab-high-skel-l.pak",
+		"cab-short": "sp-common\\actor97\\cab-short-skel-l.pak",
+		"cab-short-r": "sp-common\\actor97\\cab-short-skel-r.pak",
 		"carry-plank": "world-saving-kids\\actor97\\carry-plank-skel.pak",
-		"cat": "world-seattle-arrival\\actor97\\cat-skel.pak",
+		"cat": "sp-common\\actor97\\cat-skel.pak",
 		"chicken": "world-forward-base\\actor97\\chicken-skel.pak",
 		"cow": "world-patrol-jackson\\actor97\\cow-skel.pak",
-		"dina": "world-flashback-guitar\\actor97\\dina-skel.pak",
-		"doe": "world-flashback-guitar\\actor97\\doe-skel.pak",
-		"dog": "world-patrol-jackson\\actor97\\dog-skel.pak",
+		"dina": "sp-common\\actor97\\dina-skel.pak",
+		"doe": "sp-common\\actor97\\doe-skel.pak",
+		"dog": "sp-common\\actor97\\dog-skel.pak",
 		"dog-crowd": "world-forward-base\\actor97\\dog-crowd-skel.pak",
-		"door": "world-flashback-guitar\\actor97\\door-skel.pak",
-		"door-dbl": "world-tracking-horde\\actor97\\door-dbl-skel.pak",
-		"drawer": "world-flashback-guitar\\actor97\\drawer-skel.pak",
+		"door": "sp-common\\actor97\\door-skel.pak",
+		"door-dbl": "world-patrol\\actor97\\door-dbl-skel.pak",
+		"drawer": "sp-common\\actor97\\drawer-skel.pak",
 		"ellie": "common\\actor97\\ellie-skel.pak",
-		"ellie-14": "world-flashback-guitar\\actor97\\ellie-14-skel.pak",
+		"ellie-14": "sp-common\\actor97\\ellie-14-skel.pak",
 		"ellie-festival-strand-hair-cloth": "sp-common\\actor97\\ellie-festival-strand-hair-cloth-skel.pak",
 		"ellie-santa-barbara-hair-cloth": "sp-common\\actor97\\ellie-santa-barbara-hair-cloth-skel.pak",
 		"ellie-seattle-hoodie-string": "sp-common\\actor97\\ellie-seattle-hoodie-string-skel.pak",
-		"festival-partner": "world-farm\\actor97\\festival-partner-skel.pak",
+		"festival-partner": "world-saving-kids\\actor97\\festival-partner-skel.pak",
 		"fish": "world-seattle-arrival\\actor97\\fish-skel-lrg.pak",
 		"fish-sml": "world-forward-base\\actor97\\fish-skel-sml.pak",
-		"fish-tiny": "world-theater\\actor97\\fish-skel-tiny.pak",
+		"fish-tiny": "world-flashback-guitar\\actor97\\fish-skel-tiny.pak",
 		"frog": "world-find-nora\\actor97\\frog-skel.pak",
-		"guitar": "world-flashback-guitar\\actor97\\guitar-skel.pak",
-		"gustavo": "world-patrol-jackson\\actor97\\gustavo-skel.pak",
+		"guitar": "sp-common\\actor97\\guitar-skel.pak",
+		"gustavo": "sp-common\\actor97\\gustavo-skel.pak",
 		"halloween-a-hanging": "world-forward-base\\actor97\\halloween-skeleton-a-hanging.pak",
-		"hangmans-noose-2m": "world-watchtower\\actor97\\hangmans-noose-2m-body-skel.pak",
+		"hangmans-noose-2m": "sp-common\\actor97\\hangmans-noose-2m-body-skel.pak",
 		"horse": "world-flashback-guitar\\actor97\\horse-skel.pak",
 		"horse-crowd": "world-forward-base\\actor97\\horse-crowd-skel.pak",
-		"horse-main": "world-flashback-guitar\\actor97\\horse-main-skel.pak",
+		"horse-main": "sp-common\\actor97\\horse-main-skel.pak",
 		"horse-main-rein-cloth": "sp-common\\actor97\\horse-main-rein-cloth-skel.pak",
 		"horse-main-stirrups": "sp-common\\actor97\\horse-main-stirrups-skel.pak",
 		"horse-mane-cloth": "sp-common\\actor97\\horse-mane-cloth-skel.pak",
 		"horse-saddle-bag-straps-cloth": "sp-common\\actor97\\horse-saddle-bag-straps-cloth-skel.pak",
 		"horse-saddle-strap-cloth": "sp-common\\actor97\\horse-saddle-strap-cloth-skel.pak",
 		"horse-tail-cloth": "sp-common\\actor97\\horse-tail-cloth-skel.pak",
-		"infected-bloater": "world-ellie-flashback-patrol\\actor97\\infected-bloater-skel.pak",
-		"infected-skel": "world-tracking\\actor97\\infected-skel.pak",
-		"isaac": "world-forward-base\\actor97\\isaac-skel.pak",
-		"jerry": "world-flashback-guitar\\actor97\\jerry-skel.pak",
-		"jesse": "world-flashback-guitar\\actor97\\jesse-skel.pak",
-		"joel": "world-flashback-guitar\\actor97\\joel-skel.pak",
-		"jordan": "world-patrol-chalet\\actor97\\jordan-skel.pak",
+		"infected-bloater": "sp-common\\actor97\\infected-bloater-skel.pak",
+		"infected-skel": "sp-common\\actor97\\infected-skel.pak",
+		"isaac": "sp-common\\actor97\\isaac-skel.pak",
+		"jerry": "sp-common\\actor97\\jerry-skel.pak",
+		"jesse": "sp-common\\actor97\\jesse-skel.pak",
+		"joel": "sp-common\\actor97\\joel-skel.pak",
+		"jordan": "sp-common\\actor97\\jordan-skel.pak",
 		"leah": "world-patrol-jackson\\actor97\\leah-skel.pak",
-		"lev": "world-saving-kids\\actor97\\lev-skel.pak",
+		"lev": "sp-common\\actor97\\lev-skel.pak",
 		"lev-jacket-cloth": "sp-common\\actor97\\lev-jacket-cloth-skel.pak",
 		"light": "common\\actor97\\light-skel.pak",
-		"manny": "world-patrol-jackson\\actor97\\manny-skel.pak",
-		"manual-upgrade": "world-seattle-arrival\\actor97\\manual-upgrade-skel.pak",
+		"manny": "sp-common\\actor97\\manny-skel.pak",
+		"manual-upgrade": "sp-common\\actor97\\manual-upgrade-skel.pak",
 		"manual-upgrade-magazine-righthand": "common\\actor97\\manual-upgrade-magazine-righthand-skel.pak",
-		"maria": "world-flashback-guitar\\actor97\\maria-skel.pak",
-		"marlene": "world-abby-flashback-dad\\actor97\\marlene-skel.pak",
-		"med-hosp-female-a": "world-medicine\\actor97\\med-hosp-skeleton-female-a.pak",
-		"med-hosp-male-a": "world-find-nora\\actor97\\med-hosp-skeleton-male-a.pak",
-		"mel": "world-patrol-jackson\\actor97\\mel-skel.pak",
-		"mike": "world-seattle-arrival\\actor97\\mike-skel.pak",
-		"military-truck-modern": "world-flooded-city\\actor97\\military-truck-modern-skel.pak",
-		"militia-mannysdad": "world-forward-base\\actor97\\militia-mannysdad-skel.pak",
-		"militia-whitney": "world-find-nora\\actor97\\militia-whitney-skel.pak",
-		"nick": "world-patrol-jackson\\actor97\\nick-skel.pak",
-		"nora": "world-patrol-jackson\\actor97\\nora-skel.pak",
-		"npc-brute": "world-find-nora\\actor97\\npc-brute-skel.pak",
-		"npc-normal": "world-patrol-jackson\\actor97\\npc-normal-skel.pak",
-		"owen": "world-patrol-jackson\\actor97\\owen-skel.pak",
-		"prisoner-ian": "world-santa-barbara\\actor97\\prisoner-ian-skel.pak",
-		"ratking-bloater": "world-medicine\\actor97\\ratking-bloater-skel.pak",
-		"ratking-stalker": "world-medicine\\actor97\\ratking-stalker-skel.pak",
-		"ratking-stalker-scaled": "world-medicine\\actor97\\ratking-stalker-scaled-skel.pak",
-		"rifle-strap-inspect": "world-seattle-arrival\\actor97\\rifle-strap-inspect-skel.pak",
-		"rope14m": "world-tracking\\actor97\\rope14m-skel.pak",
+		"maria": "sp-common\\actor97\\maria-skel.pak",
+		"marlene": "sp-common\\actor97\\marlene-skel.pak",
+		"med-hosp-female-a": "sp-common\\actor97\\med-hosp-skeleton-female-a.pak",
+		"med-hosp-male-a": "sp-common\\actor97\\med-hosp-skeleton-male-a.pak",
+		"mel": "sp-common\\actor97\\mel-skel.pak",
+		"mike": "sp-common\\actor97\\mike-skel.pak",
+		"military-truck-modern": "world-theater\\actor97\\military-truck-modern-skel.pak",
+		"militia-mannysdad": "world-abby-flashback-dad\\actor97\\militia-mannysdad-skel.pak",
+		"militia-whitney": "sp-common\\actor97\\militia-whitney-skel.pak",
+		"nick": "sp-common\\actor97\\nick-skel.pak",
+		"nora": "sp-common\\actor97\\nora-skel.pak",
+		"npc-brute": "sp-common\\actor97\\npc-brute-skel.pak",
+		"npc-normal": "sp-common\\actor97\\npc-normal-skel.pak",
+		"owen": "sp-common\\actor97\\owen-skel.pak",
+		"prisoner-ian": "sp-common\\actor97\\prisoner-ian-skel.pak",
+		"ratking-bloater": "sp-common\\actor97\\ratking-bloater-skel.pak",
+		"ratking-stalker": "sp-common\\actor97\\ratking-stalker-skel.pak",
+		"ratking-stalker-scaled": "sp-common\\actor97\\ratking-stalker-scaled-skel.pak",
+		"rifle-strap-inspect": "sp-common\\actor97\\rifle-strap-inspect-skel.pak",
+		"rope14m": "sp-common\\actor97\\rope14m-skel.pak",
 		"scar-chris": "world-forward-base\\actor97\\scar-chris-skel.pak",
-		"scar-colin": "world-abby-fights-militia\\actor97\\scar-colin-skel.pak",
-		"scar-emily": "world-forward-base\\actor97\\scar-emily-skel.pak",
-		"scar-reuben": "world-saving-kids\\actor97\\scar-reuben-skel.pak",
+		"scar-colin": "sp-common\\actor97\\scar-colin-skel.pak",
+		"scar-emily": "sp-common\\actor97\\scar-emily-skel.pak",
+		"scar-reuben": "world-forward-base\\actor97\\scar-reuben-skel.pak",
 		"sea-lion": "world-forward-base\\actor97\\sea-lion-skel.pak",
-		"seth": "world-patrol-jackson\\actor97\\seth-skel.pak",
-		"shambler": "world-watchtower\\actor97\\shambler-skel.pak",
+		"seth": "sp-common\\actor97\\seth-skel.pak",
+		"shambler": "sp-common\\actor97\\shambler-skel.pak",
 		"sheep-adult": "world-forward-base\\actor97\\sheep-adult-skel.pak",
-		"sheep-lamb": "world-farm\\actor97\\sheep-lamb-skel.pak",
-		"slaver-matthew": "world-santa-barbara\\actor97\\slaver-matthew-skel.pak",
-		"slaver-ryan": "world-santa-barbara\\actor97\\slaver-ryan-skel.pak",
+		"sheep-lamb": "world-abby-ellie-fight\\actor97\\sheep-lamb-skel.pak",
+		"slaver-matthew": "sp-common\\actor97\\slaver-matthew-skel.pak",
+		"slaver-ryan": "sp-common\\actor97\\slaver-ryan-skel.pak",
 		"t1-npc-normal-old": "world-flashback-guitar\\actor97\\t1-npc-normal-skel-old.pak",
-		"tommy": "world-flashback-guitar\\actor97\\tommy-skel.pak",
-		"yara": "world-saving-kids\\actor97\\yara-skel.pak",
-		"young-abby": "world-flooded-city\\actor97\\young-abby-skel.pak",
-		"zebra": "world-abby-flashback-dad\\actor97\\zebra-skel.pak",
-		"zebra-baby": "world-abby-flashback-dad\\actor97\\zebra-baby-skel.pak",
+		"tommy": "sp-common\\actor97\\tommy-skel.pak",
+		"yara": "sp-common\\actor97\\yara-skel.pak",
+		"young-abby": "sp-common\\actor97\\young-abby-skel.pak",
+		"zebra": "world-theater-ambush\\actor97\\zebra-skel.pak",
+		"zebra-baby": "world-theater-ambush\\actor97\\zebra-baby-skel.pak",
 	},
 }
 
@@ -1005,109 +1016,124 @@ gdRawDataStarts = {
 	},
 	"TLOU2": {
 		"common": {
-			"common-dict.pak": 617216,
+			"common-dict-1.pak": 244736,
+			"common-dict.pak": 1477856,
 		},
 		"sp-common": {
-			"sp-common-dict.pak": 1117024,
+			"sp-common-dict-1.pak": 1697824,
+			"sp-common-dict-2.pak": 1193248,
+			"sp-common-dict-3.pak": 1169344,
+			"sp-common-dict-4.pak": 1452448,
+			"sp-common-dict-5.pak": 1258160,
+			"sp-common-dict-6.pak": 1136128,
+			"sp-common-dict-7.pak": 1028640,
+			"sp-common-dict-8.pak": 271568,
+			"sp-common-dict.pak": 2350656,
 		},
 		"world-abby-ellie-fight": {
-			"world-abby-ellie-fight-dict.pak": 328144,
+			"world-abby-ellie-fight-dict.pak": 307696,
 		},
 		"world-abby-fights-militia": {
-			"world-abby-fights-militia-dict.pak": 535872,
+			"world-abby-fights-militia-dict.pak": 194416,
 		},
 		"world-abby-flashback-dad": {
-			"world-abby-flashback-dad-dict.pak": 323760,
+			"world-abby-flashback-dad-dict.pak": 398048,
 		},
 		"world-amputation": {
-			"world-amputation-dict.pak": 274256,
+			"world-amputation-dict.pak": 270848,
 		},
+		"world-cutting-room": {
+			"world-cutting-room-dict.pak": 159216,
+		},		
 		"world-ellie-flashback-museum": {
-			"world-ellie-flashback-museum-dict.pak": 508400,
+			"world-ellie-flashback-museum-dict.pak": 478640,
 		},
 		"world-ellie-flashback-patrol": {
-			"world-ellie-flashback-patrol-dict.pak": 252752,
+			"world-ellie-flashback-patrol-dict.pak": 254624,
 		},
 		"world-ellie-flashback-ultimatum": {
-			"world-ellie-flashback-ultimatum-dict.pak": 198304,
+			"world-ellie-flashback-ultimatum-dict.pak": 230352,
 		},
 		"world-epilogue": {
-			"world-epilogue-dict.pak": 12448,
+			"world-epilogue-dict.pak": 544,
 		},
 		"world-farm": {
-			"world-farm-dict.pak": 617776,
+			"world-farm-dict.pak": 356304,
 		},
 		"world-find-aquarium": {
-			"world-find-aquarium-dict.pak": 205712,
+			"world-find-aquarium-dict.pak": 217920,
 		},
 		"world-find-nora": {
-			"world-find-nora-dict-1.pak": 548432,
-			"world-find-nora-dict.pak": 1065968,
+			"world-find-nora-dict.pak": 845600,
 		},
 		"world-flashback-guitar": {
-			"world-flashback-guitar-dict-1.pak": 1639248,
-			"world-flashback-guitar-dict-2.pak": 148448,
-			"world-flashback-guitar-dict.pak": 1811392,
+			"world-flashback-guitar-dict-1.pak": 140672,
+			"world-flashback-guitar-dict.pak": 1451328,
 		},
 		"world-flooded-city": {
-			"world-flooded-city-dict.pak": 1540400,
+			"world-flooded-city-dict.pak": 820416,
 		},
 		"world-forward-base": {
-			"world-forward-base-dict-1.pak": 858688,
-			"world-forward-base-dict.pak": 1570704,
+			"world-forward-base-dict-1.pak": 144624,
+			"world-forward-base-dict.pak": 1438016,
 		},
 		"world-game-start": {
-			"world-game-start-dict.pak": 544,
+			"world-game-start-dict.pak": 1504,
+		},
+		"world-guitar-freeplay": {
+			"world-guitar-freeplay-dict.pak": 14912,
 		},
 		"world-jordan-escape": {
-			"world-jordan-escape-dict.pak": 1065920,
+			"world-jordan-escape-dict.pak": 653520,
 		},
 		"world-medicine": {
-			"world-medicine-dict-1.pak": 291872,
-			"world-medicine-dict.pak": 1281248,
+			"world-medicine-dict.pak": 733072,
 		},
 		"world-patrol": {
-			"world-patrol-dict.pak": 1046272,
+			"world-patrol-dict.pak": 265088,
 		},
 		"world-patrol-chalet": {
-			"world-patrol-chalet-dict.pak": 380128,
+			"world-patrol-chalet-dict.pak": 172016,
 		},
 		"world-patrol-departure": {
-			"world-patrol-departure-dict.pak": 259680,
+			"world-patrol-departure-dict.pak": 257248,
 		},
 		"world-patrol-jackson": {
-			"world-patrol-jackson-dict.pak": 1737472,
+			"world-patrol-jackson-dict.pak": 528000,
 		},
 		"world-rescue-jesse": {
-			"world-rescue-jesse-dict.pak": 1281008,
+			"world-rescue-jesse-dict.pak": 602096,
+		},
+		"world-rogue": {
+			"world-rogue-dict-1.pak": 30320,
+			"world-rogue-dict.pak": 1025744,
 		},
 		"world-santa-barbara": {
-			"world-santa-barbara-dict.pak": 1102624,
+			"world-santa-barbara-dict.pak": 468464,
 		},
 		"world-save-lev": {
-			"world-save-lev-dict.pak": 909840,
+			"world-save-lev-dict.pak": 737824,
 		},
 		"world-saving-kids": {
-			"world-saving-kids-dict.pak": 655632,
+			"world-saving-kids-dict.pak": 711264,
 		},
 		"world-seattle-arrival": {
-			"world-seattle-arrival-dict.pak": 1914512,
+			"world-seattle-arrival-dict.pak": 1094144,
 		},
 		"world-theater": {
-			"world-theater-dict.pak": 200752,
+			"world-theater-dict.pak": 416912,
 		},
 		"world-theater-ambush": {
-			"world-theater-ambush-dict.pak": 138256,
+			"world-theater-ambush-dict.pak": 76144,
 		},
 		"world-tracking": {
-			"world-tracking-dict.pak": 656848,
+			"world-tracking-dict.pak": 374960,
 		},
 		"world-tracking-horde": {
-			"world-tracking-horde-dict.pak": 257840,
+			"world-tracking-horde-dict.pak": 68848,
 		},
 		"world-watchtower": {
-			"world-watchtower-dict-1.pak": 655024,
-			"world-watchtower-dict.pak": 1854112,
+			"world-watchtower-dict.pak": 582816,
 		},
 	},
 }
@@ -1757,8 +1783,8 @@ class PakFile:
 		fmtName = dxFormat.get(imgFormat) or ""
 		bpp = 4 if (fmtName.count("Bc1") or fmtName.count("Bc4")) else 8
 		
-		if dialogOptions.isTLOU2:
-			imageData = rapi.callExtensionMethod("untile_1dthin", imageData, width, height, bpp, 1)
+#		if dialogOptions.isTLOU2:
+#			imageData = rapi.callExtensionMethod("untile_1dthin", imageData, width, height, bpp, 1)
 		
 		decodeFmt, encodeFmt, bpp = getDXTFormat(fmtName)
 		
@@ -1811,7 +1837,7 @@ class PakFile:
 			bs.seek(self.geoOffset[0] + self.geoOffset[1] + ResItemPaddingSz + 40)
 			SubmeshesOffs = self.readPointerFixup()
 			for i in range(m_numSubMeshDesc):
-				bs.seek(SubmeshesOffs + 176*i + 104)
+				bs.seek(SubmeshesOffs + 192*i + 104)
 				self.needsBasePak = self.needsBasePak or not not bs.readUInt64()
 	
 	def readPakHeader(self):
@@ -2138,7 +2164,7 @@ class PakFile:
 				self.lods.append(submeshDescs)
 			'''
 			for i in range(m_numSubMeshDesc):
-				bs.seek(SubmeshesOffs + 176*i)
+				bs.seek(SubmeshesOffs + 192*i)
 				if dialogOptions.isTLOU2 or dialogOptions.isTLOUP1:
 					bbox = [[bs.readFloat(), bs.readFloat(), bs.readFloat(), bs.readFloat()], [bs.readFloat(), bs.readFloat(), bs.readFloat(), bs.readFloat()]]
 					submeshName = readStringAt(bs, readPointerFixup() or start).split("|")
@@ -2156,17 +2182,19 @@ class PakFile:
 					nrmRecalcDescOffsOffset = bs.tell()
 					nrmRecalcDescOffs = readPointerFixup()
 					uknStringOffs = bs.readUInt64()
+					unk_91 = bs.readUInt()
+					unk_92 = bs.readUInt()
 					m_numVertexes = bs.readUInt()
 					m_numIndexes = bs.readUInt()
 					m_numStreamSource = bs.readUInt()
 					m_numDefaultStreams = bs.readUInt()
-					ukn32_0 = bs.readUInt()
-					ukn32_1 = bs.readUInt()
 					ukn64_5 = bs.readUInt64()
 					ukn32_2 = bs.readUInt()
 					ukn32_3 = bs.readUInt()
 					ukn32_4 = bs.readUInt()
 					ukn32_5 = bs.readUInt()
+					ukn64_93 = bs.readUInt64()
+					ukn64_94 = bs.readUInt64()
 				else:
 					field_0 = bs.readUInt()
 					field_4 = bs.readUInt()
@@ -2262,7 +2290,7 @@ class PakFile:
 				
 				self.submeshes.append(PakSubmesh(submeshName, m_numVertexes, m_numIndexes, m_pIndexes, streamDescs))
 				self.submeshes[i].facesOffsetAddr = facesOffsetAddr
-				self.submeshes[i].offset = SubmeshesOffs + 176*i
+				self.submeshes[i].offset = SubmeshesOffs + 192*i
 				if dialogOptions.isTLOU2 or dialogOptions.isTLOUP1:
 					self.submeshes[i].bbox = bbox
 				
@@ -2693,7 +2721,7 @@ def pakLoadModel(data, mdlList):
 	global dialogOptions, gameName
 	
 	noesis.logPopup()
-	print("\n\n	Naughty Dog PAK model import", Version, "by alphaZomega\n")
+	print("\n\n	Naughty Dog PAK model import", Version, "by alphaZomega\nUpdated by Speclizer and Chandler Threepwood for The Last of Us Part II (PC) v1.5.10708.624\nThis version does NOT work for TLOU 2 < v1.5.10708.624 PC files or PS4 files\n")
 	
 	if noesis.optWasInvoked("-lods"):
 		dialogOptions.doLODs = True
@@ -2964,7 +2992,7 @@ def pakWriteModel(mdl, bs):
 					appendedPositions = appendedWeights = appendedIndices = isModded #False
 					newPageDataAddr = source.pakPageEntries[len(source.pakPageEntries)-1][0] + source.pakPageEntries[len(source.pakPageEntries)-1][1]
 					owningIndex = source.pakPageEntries[len(source.pakPageEntries)-1][2]
-					vertOffs = submeshesAddr + 176*i + 36
+					vertOffs = submeshesAddr + 192*i + 36
 					foundPositions = foundUVs = foundNormals = 0
 					appendedPositions = (len(writeMesh.positions) > sm.numVerts) or appendedPositions #and (not isModded or (source.getPointerFixupPage(sm.streamDescs[0].bufferOffsetAddr) < pageCt-1))
 					tempbs = wb if appendedPositions else bs
